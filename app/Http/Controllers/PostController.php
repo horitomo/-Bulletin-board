@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         // 投稿日の新しい順に取得するため　latest()メソッドを使用
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -28,6 +28,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('posts.create');
     }
 
     /**
@@ -39,6 +40,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $post = new Post;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+        return redirect('posts/'.$post->id);
     }
 
     /**
@@ -47,9 +53,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
+        return view('posts.show',['post' => $post]);
     }
 
     /**
@@ -58,9 +65,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -70,9 +78,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+        return redirect('posts/' . $post->id);
     }
 
     /**
@@ -81,8 +93,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         //
+        $post->delete();
+        return redirect('posts');
     }
 }
