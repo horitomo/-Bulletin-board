@@ -12,10 +12,11 @@
             {{ __('Edit') }}
         </a>
         {{-- 削除ボタンは後で正式なものに置き換えます --}}
-@component('components.btn-del')
-                    @slot('table', 'users')
-                    @slot('id',$user->id)
-@endcomponent
+        @component('components.btn-del')
+            @slot('controller', 'users')
+            @slot('id', $user->id)
+            @slot('name', $user->title)
+        @endcomponent
     </div>
 
     {{-- ユーザー1件の情報 --}}
@@ -60,8 +61,9 @@
                                 {{ __('Edit') }}
                             </a>
                             @component('components.btn-del')
-                                @slot('table', 'posts')
+                                @slot('controller', 'posts')
                                 @slot('id', $post->id)
+                                @slot('name', $post->title)
                             @endcomponent
                         </td>
                      </tr>
