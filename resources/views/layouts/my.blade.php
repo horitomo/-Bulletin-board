@@ -94,12 +94,34 @@
                                                                                                                                                                                     <a href="{{ url('users/' .auth()->user()->id) }}" class="dropdown-item">
                                                                                                                                                                                                         {{ __('Profile') }}
                                                                                                                                                                                     </a>
+                                                                                                                                                                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                                                                                                                                                                                        onclick="event.preventDefault();
+                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                        {{ __('Logout') }}
+                                                                                                                                                                                    </a>
                                                                                                                                                                                     <form action=" {{ route('logout') }} " id="logout-form" method="post" style="display:none;">
                                                                                                                                                                                                         @csrf
                                                                                                                                                                                     </form>                                                                                                         
                                                                                                                                                                 </div>
                                                                                                                                             </li>
                                                                                                                                             @endguest
+                                                                                                                                            <li class="nav-item dropdown">
+                                                                                                                                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="dropdown-lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                                                                                                                                    {{ __('locale.'.App::getLocale()) }}
+                                                                                                                                                                </a>
+                                                                                                                                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-lang">
+                                                                                                                                                                @if (!App::isLocale('en'))
+                                                                                                                                                                                    <a class="dropdown-item" href="{{ my_locale_url('en') }}">
+                                                                                                                                                                                                        {{ __('locale.en') }}
+                                                                                                                                                                                    </a>
+                                                                                                                                                                @endif
+                                                                                                                                                                @if (!App::isLocale('ja'))
+                                                                                                                                                                                    <a class="dropdown-item" href="{{ my_locale_url('ja') }}">
+                                                                                                                                                                                                        {{ __('locale.ja') }}
+                                                                                                                                                                                    </a>
+                                                                                                                                                                @endif
+                                                                                                                                                                </div>
+                                                                                                                                            </li>
                                                                                                                         </ul>
                                                                                                     </div>
                                                                                 </div>
@@ -112,6 +134,6 @@
                                         </div>
 
                                         {{-- JavaScript --}}
-                                        <script src=" {{ asset('js/app.jp') }} "></script>
+                                        <script src=" {{ asset('js/app.js') }} "></script>
                     </body>
 </html>
